@@ -1,0 +1,3 @@
+From hub.7000mall.com/library/openresty:latest
+LABEL maintainer="罗锦锋 <luojf@7000mall.com>"
+ADD bpp.7000mall.test.tar.gz /usr/local/openresty/nginx/html

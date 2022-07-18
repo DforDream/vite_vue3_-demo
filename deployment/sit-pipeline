@@ -1,0 +1,38 @@
+pipeline {
+    agent any
+    stages {
+        stage('npm和打包') {
+            steps {
+                sh """
+                    sudo docker run --rm -v "${WORKSPACE}:/app" hub.7000mall.com/bpp/node:14.14 sh -c 'npm install && npm run build:test'
+                    mkdir -p /data/jenkins/svn/ops/${JOB_NAME}/
+                    cd ${WORKSPACE}/dist_test
+                    sudo tar zcf ${JOB_NAME}.${BUILD_NUMBER}.tar.gz  .[!.]* * || true
+					mkdir /data/jenkins/build/${JOB_NAME} -p
+                    sudo mv ${JOB_NAME}.${BUILD_NUMBER}.tar.gz /data/jenkins/build/${JOB_NAME}/${JOB_NAME}.tar.gz
+                """
+            }
+        }
+		stage("构建镜像") {
+            steps {
+                sh """
+                    cd /data/jenkins/build/${JOB_NAME}
+                    cp ${WORKSPACE}/deployment/sit-Dockerfile ./Dockerfile
+                    sudo docker build -t "hub.7000mall.com/bpp/${JOB_NAME}:${BUILD_NUMBER}" .
+                    sudo docker push hub.7000mall.com/bpp/${JOB_NAME}:${BUILD_NUMBER}
+                """
+            }
+        }
+		stage("发布到k8s") {
+			steps {
+				sh """
+					curl -X PUT \
+					-H "content-type: application/json" \
+					-H "Cookie: KuboardUsername=luojf; KuboardAccessKey=c8wpres3as87.zkzjhmn27nn33dyh3nycemti6378frz3" \
+					-d '{"kind":"deployments","namespace":"bpp","name":"bpp-7000mall-test","images":{"hub.7000mall.com/bpp/${JOB_NAME}":"hub.7000mall.com/bpp/${JOB_NAME}:${BUILD_NUMBER}"}}' \
+					"http://192.168.71.160:30080/kuboard-api/cluster/default/kind/CICDApi/luojf/resource/updateImageTag"
+				"""
+			}
+		}
+    }
+}

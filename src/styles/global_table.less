@@ -1,0 +1,99 @@
+.global_table {
+  :deep(.ant-table) {
+    color: #191b28;
+    .ant-table-thead {
+      .ant-table-cell {
+        height: 44px;
+        line-height: 44px;
+        padding: 0;
+        padding-left: 20px;
+      }
+    }
+    .ant-table-tbody {
+      .ant-table-row {
+        &:hover {
+          .ant-table-cell {
+            .ant-input {
+              background: #fff;
+            }
+          }
+        }
+        .ant-table-cell {
+          height: 50px;
+          padding: 0;
+          padding-left: 20px;
+          .ant-input {
+            max-width: 85px;
+            background: #f2f3f5;
+            &:focus {
+              background: #fff;
+            }
+          }
+          a {
+            color: #4064f2;
+          }
+          .cur {
+            cursor: pointer;
+            color: #4064f2;
+            // &:hover {
+            //   color: #4064f2;
+            // }
+          }
+          .link {
+            display: inline-block;
+            color: #4064f2;
+            cursor: pointer;
+          }
+          .grey {
+            color: #adb1c7;
+            margin-left: 0;
+          }
+          span {
+            display: inline-block;
+            color: #adb1c7;
+            margin-left: 10px;
+          }
+          .specifications {
+            color: #191b28;
+            margin-left: 0;
+            width: 100%;
+            font-family: "MicrosoftYaHei";
+            vertical-align: middle;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+          }
+        }
+      }
+    }
+    .ant-table-thead
+      > tr
+      > th:not(:last-child):not(.ant-table-selection-column):not(.ant-table-row-expand-icon-cell):not([colspan])::before {
+      height: 0;
+    }
+  }
+  :deep(.ant-pagination) {
+    .ant-pagination-total-text {
+      padding-right: 26px;
+      margin-right: 0;
+    }
+    .ant-select {
+      font-size: 12px;
+    }
+    .ant-pagination-item-active {
+      border-color: #4064f2;
+      a {
+        color: #4064f2;
+        font-weight: normal;
+      }
+    }
+    .ant-pagination-item {
+      &:hover {
+        border-color: #4064f2;
+        a {
+          color: #4064f2;
+        }
+      }
+    }
+  }
+}

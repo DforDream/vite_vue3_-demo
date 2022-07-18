@@ -1,0 +1,29 @@
+.global_tree {
+  :deep(.ant-tree) {
+    .ant-tree-switcher {
+      opacity: 0.3;
+    }
+    .ant-tree-iconEle {
+      display: none;
+    }
+    .ant-tree-switcher-noop {
+      display: none;
+    }
+    .ant-tree-treenode-selected {
+      &::before {
+        background: transparent;
+      }
+      .ant-tree-title {
+        color: #4064f2 !important;
+      }
+    }
+    .ant-tree-treenode {
+      &:hover:before {
+        background: transparent;
+      }
+      .ant-tree-title {
+        color: #1d2129;
+      }
+    }
+  }
+}

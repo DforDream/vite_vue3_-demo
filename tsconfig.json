@@ -1,0 +1,23 @@
+{
+  "compilerOptions": {
+    "target": "esnext",
+    "useDefineForClassFields": true,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "strict": true,
+    "jsx": "preserve",
+    "sourceMap": true,
+    "resolveJsonModule": true,
+    "isolatedModules": false,/* 官网推荐设置true，但是打包会报错，这里设置false，暂未发现bug */
+    "esModuleInterop": true,
+    "lib": ["esnext", "dom"],
+    /* 以下配置使用@时会智能提示src下的文件目录，配合vite.config.ts中的resolve使用 */
+    "exactOptionalPropertyTypes": true,
+    "baseUrl": "./",
+    "paths": {
+      "@/*":["src/*"]
+    }
+  },
+  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue","src/**/*.png"],
+  "references": [{ "path": "./tsconfig.node.json" }]
+}
